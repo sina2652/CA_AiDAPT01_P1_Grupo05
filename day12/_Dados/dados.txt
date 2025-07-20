@@ -1,6 +1,0 @@
-nome	idade	sexo
-Ana	23	F
-Bruno	30	M
-Carla	27	F
-Daniel	35	M
-Eva	29	F

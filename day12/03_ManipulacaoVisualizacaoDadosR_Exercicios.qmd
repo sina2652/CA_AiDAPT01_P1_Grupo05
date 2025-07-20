@@ -1,0 +1,59 @@
+---
+title: "Exercício 3: Manipulação e Visualização de Dados com R"
+author: MRS
+format: pdf
+editor: visual
+---
+
+### 0. Pacote tidyverse {style="color: cyan"}
+
+```{r}
+library(tidyverse)  # pacotes usados: tibble, dplyr, ggplot2
+```
+
+### 1. Crie um dataset com colunas: `nome`, `idade`, `cidade`, `genero` e `salario` {style="color: cyan"}
+
+```{r}
+pessoas <- tibble(
+  nome = c("Ana", "Bruno", "Carla", "Daniel", "Eva", "Felipe", "Gabriela", "Henrique", "Isabela", "João"),
+  idade = c(25, 32, 28, 40, 30, 27, 35, 45, 29, 33),
+  cidade = c("Lisboa", "Porto", "Lisboa", "Coimbra", "Faro", "Lisboa", "Porto", "Coimbra", "Faro", "Lisboa"),
+  genero = c("F", "M", "F", "M", "F", "M", "F", "M", "F", "M"),
+  salario = c(2100, 3200, 2700, 4000, 2300, 2600, 3100, 2900, 2200, 3500)
+)
+```
+
+### 2. Filtre apenas as pessoas com salário acima de 2500 {style="color: cyan"}
+
+```{r}
+pessoas %>%
+  filter(salario > 2500) %>%
+  select(nome, idade, cidade, salario)
+```
+
+### 3. Adicione uma coluna salario_2026 com o crescimento de 25% do salário {style="color: cyan"}
+
+```{r}
+pessoas %>%
+  mutate(salario_2026 = salario * 1.25)
+```
+
+### 4. Calcule a média de salário por cidade {style="color: cyan"}
+
+```{r}
+pessoas %>%
+  group_by(cidade) %>%
+  summarise(media_salario = mean(salario, na.rm = TRUE))
+```
+
+### 5. Crie um gráfico de barras da contagem por cidade {style="color: cyan"}
+
+```{r}
+ggplot(pessoas, aes(x = cidade)) + geom_bar()
+```
+
+### 6. Crie um boxplot dos salários por género {style="color: cyan"}
+
+```{r}
+ggplot(pessoas, aes(x = genero, y = salario)) + geom_boxplot()
+```

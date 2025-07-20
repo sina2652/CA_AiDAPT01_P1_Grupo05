@@ -1,0 +1,428 @@
+---
+title: "Tópico 1: Introdução a R"
+author: MRS
+format: html
+editor: Visual
+---
+
+# 1. Introdução a R
+
+## O que é R?
+
+-   R é uma linguagem de programação estatística voltado à análise de dados, estatística e visualização gráfica.
+-   Criado originalmente por estatísticos, tornou-se uma das ferramentas mais utilizadas em ciência de dados, pesquisa académica, economia, bioinformática, entre outras áreas.
+
+## Vantagens do R
+
+-   Gratuito e de código aberto.
+-   Capacidade para visualizações gráficas e relatórios dinâmicos.
+-   Extensível com pacotes disponíveis.
+-   Integração com diversas ferramentas e formatos de dados (Excel, SQL, JSON, APIs, etc.).
+-   Suporte ativo da comunidade científica e técnica
+
+## Trabalhar com R
+
+-   R é o motor da linguagem.
+-   IDEs (ambientes de desenvolvimento): Visual Studio Code, RStudio, etc.
+-   Suporte a markdown: Quarto, Posit, etc.
+
+## Instalação
+
+1.  VSCode: <https://code.visualstudio.com/>.
+2.  R: <https://cran.r-project.org>.
+3.  Quarto : <https://quarto.org/docs/get-started/>
+4.  No VSCode, instalar as extensões:
+
+-   R, REditorSupport
+-   R Extension Pack, Yuki Ueda
+-   Quarto, Quarto
+
+5.  Se necessário, criar o terminal R:
+
+-   Aceder à palete de comandos com ctrl+shift+p
+-   Escrever R: Create Terminal
+
+
+# 2. Testar se o R está a funcionar
+
+```{r}
+head(cars)
+summary(cars)
+plot(cars)
+
+```
+
+
+
+
+# 3. Primeiros comandos
+
+## Comandos
+
+```{r}
+# Ver a pasta de trabalho atual
+
+getwd()
+```
+
+```{r}
+# Definir a pasta de trabalho
+
+setwd("C:/_FORMACAO/CA_2025-05_AiDAPT01/02_FEADR")
+```
+
+```{r}
+# Pedir ajuda sobre uma função
+
+help(mean)
+
+?sum
+```
+
+## Atalhos de teclado
+
+-   Inserir uma célula de código: **ctrl+shift+i**
+-   Executar os comandos, um a um: **ctrl+enter**
+-   Executar todo o script: **ctrl+shift+enter**
+-   Compilar o documento em HTML, PDF ou Word: **ctrl+shift+k**
+-   Chamar a palete de comandos: **ctrl+shift+p**
+-   Limpar o terminal: **ctrl+l**
+-   Comutar entre editor e o terminal: **ctrl+j**
+-   Auto completar / sugestão: **ctrl+espaço**
+-   Comentar/Descomentar linha(s): **ctrl+/**
+-   Alternar entre ficheiros abertos: **ctrl+tab**
+
+# 4. Dados em R
+
+## Variáveis
+
+-   São usadas para armazenar dados e objetos em R.
+-   O nome de uma variável deve começar com uma letra e pode conter letras, números, pontos e sublinhado.
+-   Usar camelCase para designar variáveis.
+-   A atribuição pode ser feita com \<- (mais comum), = ou -\>.
+-   As variáveis ​​não têm de ser declaradas com nenhum tipo específico e podem mudar de tipo depois de serem definidas.
+
+```{r}
+# Declarar variáveis
+
+x <- 10       # atribuição com <-
+y = 5         # atribuição com =
+z <- x + y    # operação com variáveis
+
+# Ver variáveis
+x
+y
+print(z)
+```
+
+## Tipos de dados
+
+-   R possui vários tipos de dados padrão.
+
+-   Os principais são:
+
+    -   numeric (inclui inteiros e decimais): 10.5, 55, 787
+
+    -   integer: 1L, 55L, 100L
+
+    -   character (string): "R is ok", 'testing...'
+
+    -   logical (boolean): TRUE or FALSE
+
+    -   factors: usados para representar variáveis categóricas
+
+```{r}
+# Numéricos
+valorInteiro <- 10
+valor2 <- 3.14   # o carater decimal é o ponto (.)
+
+# Inteiros
+contagem <- 14L
+
+# Caracteres
+nome <- "MRS"
+curso <- 'R'
+
+curso
+
+
+# Lógicos
+aprovado <- TRUE
+inscrito <- FALSE
+
+inscrito
+
+
+# Fatores
+classificacao <- factor(c("Baixo", "Médio", "Alto"))
+situacao <- factor(c("Resolvido", "Adiado", "Por concluir"))
+
+print(situacao)
+```
+
+```{r}
+# Ver o tipo de dados das variáveis
+
+class(valorInteiro)
+class(contagem)
+class(curso)
+class(aprovado)
+class(situacao)   # gera Levels
+```
+
+## Classificação das variáveis
+
+-   Ao trabalhar com dados, é essencial entender os **tipos de variáveis** e as suas **escalas de mensuração**, pois isso influencia as análises estatísticas.
+
+-   Tipo \> escala \> Explicação \> exemplos
+
+-   **Categórica nominal**
+
+    -   Nominal
+    -   Sem ordem entre categorias
+    -   Género, cor dos olhos
+
+-   **Categórica ordinal**
+
+    -   Ordinal
+    -   Com ordem, mas sem diferença numérica definida entre níveis
+    -   Grau de satisfação, escolaridade
+
+-   **Numérica discreta**
+
+    -   Discreta
+    -   Valores inteiros e contáveis
+    -   Número de filhos, número de testes
+
+-   **Numérica contínua**
+
+    -   Contínua
+    -   Pode assumir qualquer valor dentro de um intervalo (decimais)
+    -   Altura, peso, temperatura
+
+### Nominal (fator simples)
+
+```{r}
+genero <- factor(c("Masculino", "Feminino", "Feminino", "Masculino"))
+
+# os níveis representam os valores únicos possíveis da categoria
+levels(genero)
+```
+
+### Ordinal (fator ordenado)
+
+```{r}
+nivel <- factor(c("Baixo", "Médio", "Alto", "Médio"), ordered = TRUE)
+
+levels(nivel)
+```
+
+### Discreta (inteiro)
+
+```{r}
+filhos <- c(1L, 2L, 0L, 3L)
+```
+
+### Contínua (numérico decimal)
+
+```{r}
+peso <- c(60.5, 72.3, 68.0, 80.2)
+```
+
+## Objetos
+
+-   Em R, tudo é um objeto.
+-   As principais estruturas de dados:
+    -   Vetores
+    -   Matrizes
+    -   Data frames
+    -   Listas
+
+### Vetores
+
+-   Coleção de elementos do mesmo tipo.
+
+```{r}
+idades <- c(23, 34, 28, 40)
+```
+
+### Matrizes
+
+-   Tabelas bidimensionais com elementos do mesmo tipo.
+-   Por defeito, a matriz é preenchida por colunas.
+-   Para preencher por linhas, usar o argumento byrow = TRUE.
+
+```{r}
+# 1:6 → Gera uma sequência de números de 1 até 6
+# matrix(...): cria ma matriz
+# nrow = 2: define o número de linhas
+# ncol = 3: define o número de colunas
+matriz <- matrix(1:6, nrow = 2, ncol = 3)
+
+# por coluna
+matrizPorColuna <- matrix(c(2, 45, 13, 85, 100, 4), nrow = 2, ncol = 3)
+
+# por linha
+matrizPorLinha <- matrix(c(2, 45, 13, 85, 100, 4), nrow = 2, ncol = 3, byrow = TRUE)
+
+# mostrar
+matriz
+matrizPorColuna
+matrizPorLinha
+```
+
+### Data frames
+
+-   Tabelas onde cada coluna pode ter um tipo de dados diferente.
+
+```{r}
+df <- data.frame(nome = c("Maria", "Carlos"), idade = c(20, 60))
+
+df
+```
+
+### Listas
+
+-   Coleções heterogéneas, podem conter objetos de diferentes tipos e estruturas de dados.
+
+```{r}
+idades <- c(20, 40, 30, 50)
+
+pessoas <- data.frame(primeiroNome = c("Ana", "João"), localidade = c("Espinho", "Porto"))
+
+lista <- list(numeros = idades, tabela = pessoas)
+
+print(lista)
+```
+
+# 5. Pacotes essenciais: tidyverse, dplyr, ggplot2
+
+-   Pacotes (packages) em R são extensões que adicionam novas funcionalidades.
+
+-   Os mais importantes para análise de dados são:
+
+    -   `tidyverse`: conjunto de pacotes para ciência de dados.
+    -   `dplyr`: manipulação eficiente de dados.
+    -   `ggplot2`: criação de gráficos.
+
+### Instalação e carregamento
+
+```{r}
+# Instalar o completo
+# install.packages("tidyverse")   # inclui dplyr e ggplot2, entre outros
+
+# Instalar individualmente
+# install.packages(c("dplyr", "ggplot2"))
+
+# Ver a informação completa dos pacotes instalados
+# installed.packages()
+
+# Ver o nome dos pacotes instalados
+# rownames(installed.packages())
+
+# No VSCode, ver o nome dos pacotes instalados
+# View(installed.packages())
+
+# Ver pacotes carregados na sessão atual
+# search()
+
+# Ver se um pacote específico está instalado
+# "ggplot2" %in% rownames(installed.packages())
+```
+
+```{r}
+# Carregar pacotes
+library(tidyverse)
+```
+
+# 6. Operações com dataframes
+
+```{r}
+compras <- data.frame(
+  cliente = c("Ana", "João", "Ana", "Carlos", "João", "Beatriz"),
+  produto = c("Livro", "Caneta", "Caderno", "Livro", "Caderno", "Caneta"),
+  valor = c(12.5, 1.2, 3.0, 12.5, 3.0, 1.2),
+  data = as.Date(c("2025-05-01", "2025-05-01", "2025-05-02", "2025-05-03", "2025-05-04", "2025-05-04"))
+)
+```
+
+## Operações comuns
+
+### 1. Filtrar linhas
+
+```{r}
+compras[compras$valor > 5, ]        # compras acima de 5,00 €
+```
+
+### 2. Selecionar colunas
+
+```{r}
+compras[c("produto", "valor")]      # só produto e valor
+```
+
+### 3. Adicionar nova coluna
+
+```{r}
+compras$valor_com_iva <- compras$valor * 1.23       # valor com IVA
+```
+
+### 4. Ordenar linhas
+
+```{r}
+compras[order(compras$valor), ]     # crescente
+compras[order(-compras$valor), ]    # decrescente
+```
+
+### 5. Agrupar e resumir
+
+```{r}
+aggregate(valor ~ cliente, data = compras, sum)     # total gasto por cliente
+```
+
+### 5. Agrupar e resumir com dplyr
+
+```{r}
+library(dplyr)
+
+compras %>%
+  group_by(cliente) %>%
+  summarise(total_gasto = sum(valor))
+```
+
+### 6. Contar
+
+```{r}
+table(compras$produto)      # compras por produto
+```
+
+### 7. Filtrar
+
+```{r}
+subset(compras, data == as.Date("2025-05-04"))      # data = 2025-05-04
+```
+
+## Resumo
+
+| Operação        | Função base R       | Equivalente dplyr            |
+|-----------------|---------------------|------------------------------|
+| Filtrar         | `subset()`          | `filter()`                   |
+| Selecionar col. | `df[c(...)]`        | `select()`                   |
+| Adicionar col.  | `df$new_col <- ...` | `mutate()`                   |
+| Ordenar         | `order()`           | `arrange()`                  |
+| Agrupar/resumir | `aggregate()`       | `group_by()` + `summarise()` |
+| Contar          | `table()`           | `count()`                    |
+
+# 7. Exercício Prático
+
+Crie um pequeno conjunto de dados representando pessoas com nome, idade e cidade. Em seguida:
+
+1.  Crie um `data frame` com essas informações.
+2.  Adicione uma nova coluna chamada `idade_2030` que contenha a idade estimada da pessoa em 2030.
+3.  Filtre apenas as pessoas com mais de 30 anos.
+4.  Liste os nomes e cidades dessas pessoas.
+
+### Solução
+
+```{r}
+
+```

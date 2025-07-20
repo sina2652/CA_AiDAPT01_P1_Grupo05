@@ -1,0 +1,258 @@
+---
+title: "Tópico 3: Manipulação e Visualização de Dados com R"
+author: MRS
+format: pdf
+editor: visual
+---
+
+# 3. Manipulação e Visualização de Dados {style="color: orange"}
+
+-   Após importar os dados, o próximo passo é manipulá-los e visualizá-los para gerar insights.
+-   Pacotes úteis dentro de **tidyverse**:
+    -   **`dplyr`**: para transformação dos dados.
+    -   **`ggplot2`**: para visualização gráfica.
+
+## Importação de dados {style="color: cyan"}
+
+-   É possível importar dados de diversos formatos.
+-   Formatos comuns: `.txt`, `.csv`, `.xlsx`, `.json`, `.xml`.
+
+### Exemplo: Importar de TXT
+
+```{r Importar de TXT}
+# Base R
+dados_txt_base <- read.table("_dados/dados.txt", header = TRUE,  sep = "\t")
+head(dados_txt_base)
+
+getwd()
+
+# readr (tidyverse)
+library(readr)
+dados_txt_readr <- read_tsv("_dados/dados.txt", show_col_types = FALSE)
+head(dados_txt_readr)
+```
+
+### Exemplo: Importar de CSV
+
+```{r Importar de CSV}
+# Base R
+dados_csv_base <- read.csv("_dados/dados.csv", header = TRUE)
+head(dados_csv_base)
+
+# readr (tidyverse)
+library(readr)
+dados_csv_readr <- read_csv("_dados/dados.csv", show_col_types = FALSE)     # read_csv2() com ;
+head(dados_csv_readr)
+```
+
+### Exemplo: Importar de Excel
+
+```{r Importar de Excel}
+# readxl (tidyverse)
+library(readxl)
+
+dados_excel_base <- read_excel("_dados/dados.xlsx")   # Lê a primeira folha do ficheiro
+
+head(dados_excel_base)
+```
+
+### Exemplo: Importar de JSON (NDJSON - JSON por linha)
+
+```{r Importar de JSON}
+# rjson
+#install.packages("rjson")
+library(rjson)
+dados_json_rjson <- fromJSON(file = '_dados/dados.json')
+
+dados_df = as.data.frame(do.call(rbind, dados_json_rjson))  # para apresentar como tabela
+head(dados_df)
+```
+
+### Exemplo: Importar de XML
+
+```{r Importar de XML}
+# xml2 + dplyr (tidyverse)
+library(xml2)
+library(dplyr)
+
+# Ler e transformar em lista
+dados_xml_raw <- read_xml("_dados/dados.xml")
+dados_xml_list <- as_list(dados_xml_raw)
+
+# Extrair dados e transformar em tibble
+# tibble --> data frame mais moderno, suportado pelo pacote tibble do tidyverse 
+dados_xml_xml2 <- lapply(dados_xml_list[[1]], function(x) {
+  sapply(x, function(y) as.character(y))
+}) %>% bind_rows()
+
+head(dados_xml_xml2)
+```
+
+## Limpeza e transformação com dplyr {style="color: cyan"}
+
+-   `dplyr` oferece funções para manipulação eficiente dos dados.
+
+### Principais funções
+
+-   `filter()`: filtra linhas
+-   `select()`: seleciona colunas
+-   `mutate()`: cria ou modifica colunas
+-   `arrange()`: ordena dados
+-   `group_by()` + `summarise()`: agrupa e resume
+
+### Exemplos
+
+```{r Dados}
+library(readr)
+
+dados <- read_csv("_dados/dados.csv", show_col_types = FALSE)
+
+dados
+```
+
+```{r Filtrar dados}
+library(dplyr)
+
+dados_filtrados <- dados %>%
+  filter(idade > 30) %>%
+  select(nome, idade) %>%
+  mutate(idade_2030 = idade + 5)
+
+dados_filtrados
+```
+
+### Agrupamento e resumo
+
+```{r Agrupar dados}
+library(dplyr)
+
+dados %>%
+  group_by(sexo) %>%
+  summarise(media_idade = mean(idade, na.rm = TRUE))  # ignora os NAs
+```
+
+## Visualização com ggplot2 {style="color: cyan"}
+
+-   `ggplot2` permite criar gráficos personalizados com uma de camadas.
+
+### Estrutura básica
+
+```{r}
+# install.packages("ggplot2")
+ #library(ggplot2)
+
+ ggplot(dados, aes(x = variavel_x, y = variavel_y)) + geom_<tipo_de_grafico>()
+```
+
+### Exemplos
+
+#### Gráfico de barras
+
+```{r Gráfico de barras}
+library(ggplot2)
+
+# ggplot(dados, aes(x = sexo)) + geom_bar()
+
+ggplot(dados, aes(x = nome, y = idade, fill = sexo)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Idade por pessoa", x = "Nome", y = "Idade") +
+  theme_minimal()
+```
+
+#### Histograma
+
+```{r Histograma}
+library(ggplot2)
+
+# ggplot(dados, aes(x = sexo)) + geom_histogram(binwidth = 5)
+
+ggplot(dados, aes(x = idade)) +
+  geom_histogram(binwidth = 2, fill = "steelblue", color = "white") +
+  labs(title = "Histograma das idades", x = "Idade", y = "Frequência") +
+  theme_minimal()
+```
+
+#### Boxplot
+
+```{r Boxplot}
+library(ggplot2)
+
+# ggplot(dados, aes(x = genero, y = sexo)) + geom_boxplot()
+
+ggplot(dados, aes(x = sexo, y = idade, fill = sexo)) +
+  geom_boxplot() +
+  labs(title = "Distribuição de idade por sexo", x = "Sexo", y = "Idade") +
+  theme_minimal()
+```
+
+#### Dispersão
+
+```{r Dispersão}
+# ggplot(dados, aes(x = altura, y = peso)) + geom_point()
+
+ggplot(dados, aes(x = nome, y = idade, color = sexo)) +
+  geom_point(size = 4) +
+  labs(title = "Idade por nome (ponto)", x = "Nome", y = "Idade") +
+  theme_minimal()
+```
+
+## Exercício prático {style="color: cyan"}
+
+1.  Crie um dataset com colunas: `nome`, `idade`, `cidade`, `genero` e `salario`.
+
+2.  Realize as seguintes tarefas:
+
+    1.  Selecione apenas as colunas `nome`, `idade` e `cidade`.
+    2.  Filtre apenas as pessoas com salário acima de 2500.
+    3.  Adicione uma coluna `salario_2026` com o crescimento de 25% do salário.
+    4.  Calcule a média de salário por cidade.
+    5.  Crie um gráfico de barras da contagem por cidade.
+    6.  Crie um boxplot dos salários por género.
+
+### Solução
+
+```{r}
+nome <- c("sina","joao","pedro","ana")
+idade <- c(34,18,27,46)
+cidade <- c("Braga", "Lisboa", "Porto", "Nazare")
+genero <- c("M","M","M","F")
+salario <- c(2500,2200,1700,4000)
+exercize_Table <- data.frame(nome,idade,cidade,genero,salario)
+library(dplyr)
+selected_colums <- exercize_Table %>%
+select(nome,idade,cidade)
+selected_colums
+filter(salario>2500)
+dados_Filterados <- exercize_Table %>%
+filter(salario>2500)
+dados_Filterados
+
+
+```
+
+```{r}
+
+mutated_Table <- exercize_Table %>%
+mutate(salario_2026 = salario*125%)
+exercize_Table
+```
+
+```{r}
+library(dplyr)
+library(ggplot2)
+nome <- c("sina","joao","pedro","ana")
+idade <- c(34,18,27,46)
+cidade <- c("Braga", "Lisboa", "Porto", "Nazare")
+genero <- c("M","M","M","F")
+salario <- c(2500,2200,1700,4000)
+exercize_Table <- data.frame(nome,idade,cidade,genero,salario)
+exercize_Table %>%
+group_by(cidade) %>%
+summarise(media_salario = mean(salario, na.rm = TRUE))  
+ggplot(exercize_Table, aes(x = cidade )) +
+  geom_bar(stat = "identity")
+ggplot(exercize_Table, aes(x = salario, y = genero, fill = nome)) +
+  geom_boxplot() +
+  labs(title = "salario por sexo", x = "genero", y = "salario") +
+  theme_minimal()
+```

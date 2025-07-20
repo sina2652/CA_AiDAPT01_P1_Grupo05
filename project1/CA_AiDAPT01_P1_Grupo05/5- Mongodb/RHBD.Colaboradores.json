@@ -1,0 +1,178 @@
+[{
+  "_id": {
+    "$oid": "686e433fdea38a252b1dd211"
+  },
+  "numeroColaborador": 2,
+  "nomeCompleto": "Sina Sarikhani",
+  "cargoAtual": "Research Scientist",
+  "departamento": "Research & Development",
+  "dataContratacao": {
+    "$date": "2021-03-01T00:00:00.000Z"
+  },
+  "historicoDesempenho": [
+    {
+      "anoAvaliacao": 2024,
+      "ratingGeral": 5,
+      "feedbackQualitativo": "Desempenho excecional em pesquisa, publicou 2 artigos. Liderou a iniciativa de otimização de algoritmos com grande sucesso.",
+      "objetivosAtingidos": [
+        {
+          "descricao": "Publicar 1 artigo científico",
+          "estado": "Concluído"
+        },
+        {
+          "descricao": "Otimizar algoritmo X em 20%",
+          "estado": "Concluído"
+        }
+      ],
+      "revisor": "Dr. Emily White"
+    },
+    {
+      "anoAvaliacao": 2023,
+      "ratingGeral": 4,
+      "feedbackQualitativo": "Forte contribuição para o projeto Y. Demonstrou grande capacidade analítica.",
+      "objetivosAtingidos": [
+        {
+          "descricao": "Contribuir para o projeto Y",
+          "estado": "Concluído"
+        }
+      ],
+      "revisor": "Dr. Emily White"
+    }
+  ],
+  "competenciasAtuais": [
+    {
+      "nome": "Machine Learning",
+      "nivel": "Especialista",
+      "certificacao": "TensorFlow Certified"
+    },
+    {
+      "nome": "Python",
+      "nivel": "Especialista"
+    },
+    {
+      "nome": "Análise Estatística",
+      "nivel": "Avançado"
+    }
+  ],
+  "historicoFormacao": [
+    {
+      "curso": "Deep Learning Specialization",
+      "dataConclusao": {
+        "$date": "2023-10-01T00:00:00.000Z"
+      },
+      "provedor": "Coursera"
+    }
+  ],
+  "dataUltimaAtualizacaoDoc": {
+    "$date": "2025-07-06T21:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "686e4939dea38a252b1dd212"
+  },
+  "numeroColaborador": 2,
+  "nomeCompleto": "Pedro Guerreiro",
+  "cargoAtual": "Research Scientist",
+  "departamento": "Research & Development",
+  "dataContratacao": {
+    "$date": "2021-03-01T00:00:00.000Z"
+  },
+  "historicoDesempenho": [
+    {
+      "anoAvaliacao": 2024,
+      "ratingGeral": 5,
+      "feedbackQualitativo": "Desempenho excecional em pesquisa, publicou 2 artigos.",
+      "objetivosAtingidos": [
+        {
+          "descricao": "Publicar 1 artigo científico",
+          "estado": "Concluído"
+        },
+        {
+          "descricao": "Otimizar algoritmo X em 20%",
+          "estado": "Concluído"
+        }
+      ],
+      "revisor": "Dr. Emily White"
+    }
+  ],
+  "competenciasAtuais": [
+    {
+      "nome": "Machine Learning",
+      "nivel": "Especialista",
+      "certificacao": "TensorFlow Certified"
+    },
+    {
+      "nome": "Python",
+      "nivel": "Especialista"
+    }
+  ],
+  "historicoFormacao": [
+    {
+      "curso": "Deep Learning Specialization",
+      "dataConclusao": {
+        "$date": "2023-10-01T00:00:00.000Z"
+      },
+      "provedor": "Coursera"
+    }
+  ],
+  "dataUltimaAtualizacaoDoc": {
+    "$date": "2025-07-06T21:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "686e49d7dea38a252b1dd213"
+  },
+  "numeroColaborador": 3,
+  "nomeCompleto": "Gonçalo Branco",
+  "cargoAtual": "Data Analyst",
+  "departamento": "Business Intelligence",
+  "dataContratacao": {
+    "$date": "2022-07-15T00:00:00.000Z"
+  },
+  "historicoDesempenho": [
+    {
+      "anoAvaliacao": 2024,
+      "ratingGeral": 4,
+      "feedbackQualitativo": "Boa análise de dados de vendas e desenvolvimento de dashboards.",
+      "objetivosAtingidos": [
+        {
+          "descricao": "Criar 3 dashboards de BI",
+          "estado": "Concluído"
+        },
+        {
+          "descricao": "Automatizar relatórios semanais",
+          "estado": "Concluído"
+        }
+      ],
+      "revisor": "Carlos Mendes"
+    }
+  ],
+  "competenciasAtuais": [
+    {
+      "nome": "SQL",
+      "nivel": "Avançado"
+    },
+    {
+      "nome": "Power BI",
+      "nivel": "Avançado"
+    },
+    {
+      "nome": "Python",
+      "nivel": "Intermediário"
+    }
+  ],
+  "historicoFormacao": [
+    {
+      "curso": "Data Analysis with Python",
+      "dataConclusao": {
+        "$date": "2023-05-20T00:00:00.000Z"
+      },
+      "provedor": "DataCamp"
+    }
+  ],
+  "dataUltimaAtualizacaoDoc": {
+    "$date": "2025-07-07T09:00:00.000Z"
+  }
+}]
